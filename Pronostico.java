@@ -24,6 +24,7 @@ public class Pronostico {
        int puntos = 0;
        String resultado_real = this.partido.resultado(this.equipo);
        if (Objects.equals(resultado_real, this.resultado)){
+
            puntos = puntos +  1;
 
        }
