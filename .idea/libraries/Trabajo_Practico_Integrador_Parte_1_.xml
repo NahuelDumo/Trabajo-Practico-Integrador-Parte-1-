@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="Trabajo-Practico-Integrador-Parte-1-">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$" />
+      <root url="jar://$USER_HOME$/Downloads/commons-lang3-3.12.0-src.zip!/commons-lang3-3.12.0-src/src/main/java" />
+      <root url="jar://$USER_HOME$/Downloads/commons-lang3-3.12.0-src.zip!/commons-lang3-3.12.0-src/src/test/java" />
+      <root url="jar://$USER_HOME$/Downloads/commons-lang3-3.12.0-src.zip!/commons-lang3-3.12.0-src/src/main/java" />
+      <root url="jar://$USER_HOME$/Downloads/commons-lang3-3.12.0-src.zip!/commons-lang3-3.12.0-src/src/test/java" />
+      <root url="jar://$USER_HOME$/Downloads/commons-lang3-3.12.0-bin.zip!/" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$" recursive="false" />
+  </library>
+</component>

@@ -1,3 +1,5 @@
+package TrabajoPracticoIntegradorParte1;
+
 import java.util.Objects;
 
 public class Pronostico {
@@ -45,3 +47,4 @@ public class Pronostico {
         return resultado;
     }
 }
+
