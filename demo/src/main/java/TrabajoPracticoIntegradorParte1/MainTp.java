@@ -14,29 +14,31 @@ public class MainTp {
         partidos = LectorArchivos.ConvertirPartidos(args);
         pronosticos = LectorArchivos.ConvertirPronostico(args);
         for (int i = 0; i < pronosticos.size(); i++) {
-            Partido partido = partidos.get(i);
+            
             Pronostico pronostico = pronosticos.get(i);
+            Partido partido = partidos.get(pronostico.getIdPartido()-1);
             equipoAnalizar = pronostico.getNombre_equipo();
+            
+            if (pronostico.idPartido == partido.getId()){
+                if (partido.getEquipo1().getNombre().equals(equipoAnalizar) ) {
+                    puntos += pronostico.ObtenerResutadoReal(partido, equipoAnalizar);
 
 
-            if (partido.getEquipo1().getNombre().equals(equipoAnalizar)) {
-                puntos += pronostico.ObtenerResutadoReal(partido, equipoAnalizar);
+                } else if (partido.getEquipo2().getNombre().equals(equipoAnalizar)) {
+                    puntos += pronostico.ObtenerResutadoReal(partido, equipoAnalizar);
 
 
-            } else if (partido.getEquipo2().getNombre().equals(equipoAnalizar)) {
-                puntos += pronostico.ObtenerResutadoReal(partido, equipoAnalizar);
-
-
+                }
+                System.out.println("----------------------------------------\nEn la ronda numero " + (i + 1)
+                        + " los puntos obtenidos fueron: " + puntos
+                        + "\n----------------------------------------\n");
+                System.out.println("Los equipos participantes fueron:\n-" + partido.getEquipo1().getNombre() + "\n-"
+                        + partido.getEquipo2().getNombre() + "\nResultado Para " + equipoAnalizar + ": "
+                        + partido.resultado(equipoAnalizar));
+                Scanner scanner = new Scanner(System.in);
+                System.out.println("Presiona Enter para continuar de Ronda");
+                scanner.nextLine();
             }
-            System.out.println("----------------------------------------\nEn la ronda numero " + (i + 1)
-                    + " los puntos obtenidos fueron: " + puntos
-                    + "\n----------------------------------------\n");
-            System.out.println("Los equipos participantes fueron:\n-" + partido.getEquipo1().getNombre() + "\n-"
-                    + partido.getEquipo2().getNombre() + "\nResultado Para " + equipoAnalizar + ": "
-                    + partido.resultado(equipoAnalizar));
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("Presiona Enter para continuar de Ronda");
-            scanner.nextLine();
         }
 
         // mostrar los puntos
