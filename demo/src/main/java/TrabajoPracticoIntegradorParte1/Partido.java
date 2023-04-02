@@ -41,14 +41,15 @@ public class Partido {
         this.equipo2 = equipo2;
 
     }
+    
     //metodos
-    public String resultado(Equipo equipo){
-        if(Objects.equals(equipo, this.equipo1)){
+    public String resultado(String equipoAnalizar){
+        if(Objects.equals(equipoAnalizar, this.equipo1.getNombre())){
             if (this.golesEquipo1 > this.golesEquipo2){
-                return "Gana";
+                return "Ganador";
             }
             else if (this.golesEquipo1 < this.golesEquipo2){
-                return "Pierde";
+                return "Perdedor";
             }
             else{
                 return "Empata";
@@ -56,10 +57,10 @@ public class Partido {
         }
         else{
                 if (this.golesEquipo1 < this.golesEquipo2){
-                    return "Gana";
+                    return "Ganador";
                 }
                 else if (this.golesEquipo1 > this.golesEquipo2){
-                    return "Pierde";
+                    return "Perdedor";
                 }
                 else{
                     return "Empata";

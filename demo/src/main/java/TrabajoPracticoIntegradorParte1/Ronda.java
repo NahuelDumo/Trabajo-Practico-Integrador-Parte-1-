@@ -5,6 +5,7 @@ import java.util.List;
 public class Ronda {
     private String nro;
     private List<Partido> partidos;
+    
 
     public Ronda(String nro, List<Partido> todos_partidos) {
         this.nro = nro;
@@ -29,4 +30,5 @@ public class Ronda {
     public void setPartidos(List<Partido> partidos) {
         this.partidos = partidos;
     }
+    
 }

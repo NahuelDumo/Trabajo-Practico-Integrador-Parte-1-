@@ -1,50 +1,47 @@
 package TrabajoPracticoIntegradorParte1;
 
-import java.util.Objects;
-
 public class Pronostico {
-    private Equipo equipo;
-    private  Partido partido;
-    private final String resultado;
+    private String nombre_equipo;
+    int  idPartido;
+    private String resultado;
 
     //constructores
-   public Pronostico(Equipo eqipo1, Partido parti, String result){
-      this.equipo= eqipo1;
-      this.partido= parti;
+   public Pronostico(String eqipo1, int parti, String result){
+      this.nombre_equipo= eqipo1;
+      this.idPartido= parti;
       this.resultado = result;
    }
-    public Pronostico(Equipo eqipo1, String result){
-        this.equipo= eqipo1;
+    public Pronostico(String eqipo1, String result){
+        this.nombre_equipo= eqipo1;
         this.resultado = result;
     }
 
-   public Equipo getEquipo() {
-      return equipo;
+   public String getNombre_equipo() {
+      return nombre_equipo;
    }
 
-   public void setEquipo(Equipo equipo) {
-      this.equipo = equipo;
+   public void setNombre_equipo(String equipo) {
+      this.nombre_equipo = equipo;
    }
    //metodos
-   public int puntos() {
-       int puntos = 0;
-       String resultado_real = this.partido.resultado(this.equipo);
-       if (Objects.equals(resultado_real, this.resultado)){
-           puntos = puntos +  1;
-       }
-       return puntos;
-   }
-
-    public Partido getPartido() {
-        return partido;
+   public int getIdPartido() {
+    return idPartido;
     }
-
-    public void setPartido(Partido partido) {
-        this.partido = partido;
+    public void setIdPartido(int idPartido) {
+    this.idPartido = idPartido;
     }
-
     public String getResultado() {
         return resultado;
+    }
+    public int ObtenerResutadoReal(Partido partido, String equipoAnalizar) {
+       
+        if (partido.resultado(equipoAnalizar).equals( this.resultado)){
+            return 1;
+        
+    }
+    else{
+        return 0;
+    }
     }
 }
 

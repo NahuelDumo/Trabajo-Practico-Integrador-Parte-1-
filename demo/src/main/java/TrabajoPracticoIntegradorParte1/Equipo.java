@@ -8,6 +8,7 @@ public class Equipo {
     public Equipo(String nom, String desc){
        this.nombre = nom;
        this.descripcion = desc;
+
     }
     public Equipo(String nom){
        this.nombre = nom;
