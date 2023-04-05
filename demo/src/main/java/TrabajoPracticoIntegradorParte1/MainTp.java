@@ -13,13 +13,17 @@ public class MainTp {
         int puntos = 0;
         partidos = LectorArchivos.ConvertirPartidos(args);
         pronosticos = LectorArchivos.ConvertirPronostico(args);
+        
+       
+        
         for (int i = 0; i < pronosticos.size(); i++) {
+
             
             Pronostico pronostico = pronosticos.get(i);
             Partido partido = partidos.get(pronostico.getIdPartido()-1);
             equipoAnalizar = pronostico.getNombre_equipo();
             
-            if (pronostico.idPartido == partido.getId()){
+            if (pronostico.getIdPartido() == partido.getId()){
                 if (partido.getEquipo1().getNombre().equals(equipoAnalizar) ) {
                     puntos += pronostico.ObtenerResutadoReal(partido, equipoAnalizar);
 
@@ -29,14 +33,14 @@ public class MainTp {
 
 
                 }
-                System.out.println("----------------------------------------\nEn la ronda numero " + (i + 1)
-                        + " los puntos obtenidos fueron: " + puntos
+                System.out.println("----------------------------------------\nLa cantidad de puntos obtenido para el juego " + partido.getId() 
+                        + " fueron: " + puntos
                         + "\n----------------------------------------\n");
                 System.out.println("Los equipos participantes fueron:\n-" + partido.getEquipo1().getNombre() + "\n-"
                         + partido.getEquipo2().getNombre() + "\nResultado Para " + equipoAnalizar + ": "
-                        + partido.resultado(equipoAnalizar));
-                Scanner scanner = new Scanner(System.in);
-                System.out.println("Presiona Enter para continuar de Ronda");
+                        + partido.resultado(equipoAnalizar)+"\nSu pronostico: "+pronostico.getResultado());
+                final Scanner scanner = new Scanner(System.in);
+                System.out.println("Presiona Enter para continuar con el siguiente pronostico");
                 scanner.nextLine();
             }
         }

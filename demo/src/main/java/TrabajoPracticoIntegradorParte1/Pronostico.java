@@ -1,6 +1,7 @@
 package TrabajoPracticoIntegradorParte1;
 
 public class Pronostico {
+    private String Participante;
     private String nombre_equipo;
     int  idPartido;
     private String resultado;
