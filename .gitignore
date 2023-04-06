@@ -1,2 +1,3 @@
-.vscode
-.idea
+# Ignora archivos de VSCode
+*.vscode
+*.idea
