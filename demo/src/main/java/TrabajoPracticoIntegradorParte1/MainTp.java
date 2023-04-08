@@ -1,53 +1,49 @@
 package TrabajoPracticoIntegradorParte1;
 
-import java.io.IOException;
+
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class MainTp {
-    public static void main(String[] args) throws IOException {
-        // Leer resultados
+    public static void main(String[] args) {
+        // Obtener los datos de los archivos CSV
+        Participante participante_actual = null;
         String equipoAnalizar;
-        ArrayList<Partido> partidos = new ArrayList<Partido>();
-        ArrayList<Pronostico> pronosticos = new ArrayList<Pronostico>();
-        int puntos = 0;
-        partidos = LectorArchivos.ConvertirPartidos(args);
-        pronosticos = LectorArchivos.ConvertirPronostico(args);
-        
-       
-        
-        for (int i = 0; i < pronosticos.size(); i++) {
+        ArrayList<Ronda> rondas = LectorArchivos.ObtenerRondas();
 
-            
-            Pronostico pronostico = pronosticos.get(i);
-            Partido partido = partidos.get(pronostico.getIdPartido()-1);
-            equipoAnalizar = pronostico.getNombre_equipo();
-            
-            if (pronostico.getIdPartido() == partido.getId()){
-                if (partido.getEquipo1().getNombre().equals(equipoAnalizar) ) {
-                    puntos += pronostico.ObtenerResutadoReal(partido, equipoAnalizar);
-
-
-                } else if (partido.getEquipo2().getNombre().equals(equipoAnalizar)) {
-                    puntos += pronostico.ObtenerResutadoReal(partido, equipoAnalizar);
-
+        // Calcular los puntos de cada participante en cada ronda
+        for (Ronda ronda: rondas){
+            ArrayList<Partido> partidos = ronda.getPartidos();
+            ArrayList<Pronostico> pronosticos = ronda.getPronosticos();
+            ArrayList<Participante> participantes = ronda.getParticipantes();
+            for (int i = 0; i < pronosticos.size(); i++) {
+                Pronostico pronostico = pronosticos.get(i);
+                for (Participante participante : participantes){
+                    if (pronostico.getParticipante().equals(participante.getNombre())){
+                        participante_actual = participante;
+                    }
+                }
+                int puntaje = participante_actual.getPuntaje();
+                
+                Partido partido = partidos.get(pronostico.getIdPartido()-1);
+                equipoAnalizar = pronostico.getNombre_equipo();
+                
+                if (pronostico.getIdPartido() == partido.getId()){
+                    if (partido.getEquipo1().getNombre().equals(equipoAnalizar) ) {
+                        puntaje += pronostico.ObtenerResutadoReal(partido, equipoAnalizar);
+                        participante_actual.setPuntaje(puntaje);
+    
+                    } else if (partido.getEquipo2().getNombre().equals(equipoAnalizar)) {
+                        puntaje += pronostico.ObtenerResutadoReal(partido, equipoAnalizar);
+                        participante_actual.setPuntaje(puntaje);
+                        
+                    }
 
                 }
-                System.out.println("----------------------------------------\nLa cantidad de puntos obtenido para el juego " + partido.getId() 
-                        + " fueron: " + puntos
-                        + "\n----------------------------------------\n");
-                System.out.println("Los equipos participantes fueron:\n-" + partido.getEquipo1().getNombre() + "\n-"
-                        + partido.getEquipo2().getNombre() + "\nResultado Para " + equipoAnalizar + ": "
-                        + partido.resultado(equipoAnalizar)+"\nSu pronostico: "+pronostico.getResultado());
-                final Scanner scanner = new Scanner(System.in);
-                System.out.println("Presiona Enter para continuar con el siguiente pronostico");
-                scanner.nextLine();
+            }
+            System.out.println("Para la ronda Numero"+ronda.getNro()+"\nLos puntos son:\n");
+            for (Participante participante : participantes){
+                System.out.println(participante.getNombre()+":"+participante.getPuntaje()+"/n");
             }
         }
-
-        // mostrar los puntos
-        System.out.println("Los puntos obtenidos por el usuario fueron:");
-        System.out.println(puntos);
-
     }
 }

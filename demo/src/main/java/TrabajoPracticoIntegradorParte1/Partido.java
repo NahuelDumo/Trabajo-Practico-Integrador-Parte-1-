@@ -3,12 +3,20 @@ package TrabajoPracticoIntegradorParte1;
 import java.util.Objects;
 
 public class Partido {
+    private Ronda ronda;
     private Integer id  ;
     private Equipo equipo1;
     private Equipo equipo2;
     private final Integer golesEquipo1;
     private final Integer golesEquipo2;
 
+
+    public Ronda getRonda() {
+        return ronda;
+    }
+    public void setRonda(Ronda ronda) {
+        this.ronda = ronda;
+    }
     public Equipo getEquipo1() {
         return equipo1;
     }

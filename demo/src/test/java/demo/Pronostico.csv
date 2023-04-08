@@ -1,3 +1,3 @@
-Equipo, IdPartido, ResutadoEsperado
-argentina,1,Ganador
-mexico,1,Ganador
+Participante,Ronda,Equipo, IdPartido, ResutadoEsperado
+Mariana,1,argentina,1,Ganador
+Pedro,1,mexico,2,Ganador
