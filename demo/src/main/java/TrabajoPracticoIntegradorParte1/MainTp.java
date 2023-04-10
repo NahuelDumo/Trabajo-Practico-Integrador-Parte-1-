@@ -10,7 +10,7 @@ public class MainTp {
 
         // Calcular los puntos de cada participante en cada ronda
         for (Ronda ronda: rondas){
-            System.out.println("Para la ronda Numero "+ronda.getNro()+"\nLos puntos son:\n");
+            System.out.println("-------------------------------------------------\nPara la ronda Numero "+ronda.getNro()+"\nLos puntos son:\n");
             ArrayList<Partido> partidos = ronda.getPartidos();
             ArrayList<Pronostico> pronosticos = ronda.getPronosticos();
             ArrayList<Participante> participantes = ronda.getParticipantes();
