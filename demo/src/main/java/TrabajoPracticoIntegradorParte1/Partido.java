@@ -32,8 +32,8 @@ public class Partido {
     public Integer getId() {
         return id;
     }
-    public Partido(Integer ide, Equipo equio1, Equipo equio2, Integer golesEuipo1, Integer golesEuipo2){
-
+    public Partido(Ronda rond,Integer ide, Equipo equio1, Equipo equio2, Integer golesEuipo1, Integer golesEuipo2){
+        this.ronda = rond;
         this.id = ide;
         this.equipo1 = equio1;
         this.equipo2 = equio2;

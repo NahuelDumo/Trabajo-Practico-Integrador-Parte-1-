@@ -3,13 +3,13 @@ package TrabajoPracticoIntegradorParte1;
 import java.util.ArrayList;
 
 public class Ronda {
-    private String nro;
+    private int nro;
     private ArrayList<Partido> partidos;
     private ArrayList<Pronostico> pronosticos;
     private ArrayList<Participante> participantes;
 
 
-    public Ronda(String nro, ArrayList<Partido> todos_partidos, ArrayList<Pronostico> pronostico,  ArrayList<Participante> participante) {
+    public Ronda(int nro, ArrayList<Partido> todos_partidos, ArrayList<Pronostico> pronostico,  ArrayList<Participante> participante) {
         this.nro = nro;
         this.partidos = todos_partidos;
         this.pronosticos = pronostico;
@@ -19,11 +19,11 @@ public class Ronda {
     //metodos accesores y tomadores
 
 
-    public void setNro(String nro) {
+    public void setNro(int nro) {
         this.nro = nro;
     }
 
-    public String getNro() {
+    public int getNro() {
         return nro;
     }
 
