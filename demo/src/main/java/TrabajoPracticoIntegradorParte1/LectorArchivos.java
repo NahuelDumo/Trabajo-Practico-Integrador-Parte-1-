@@ -6,7 +6,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.opencsv.CSVReader;
-import com.opencsv.exceptions.CsvValidationException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 
 public class LectorArchivos {
 
@@ -14,16 +19,22 @@ public class LectorArchivos {
     private static int contador = 0;
     public static final char SEPARATOR = ',';
 
-    public void convertirPartidos(String[] args) throws IOException, CsvValidationException {
-        CSVReader reader = null;
+    public void convertirPartidos(String[] args) throws SQLException {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+    
         try {
-            reader = new CSVReader(new FileReader("C://Users//nahue//OneDrive//Documentos//GitHub//Trabajo-Practico-Integrador-Parte-1-//demo//src//test//java//demo//partidos.csv"));
-            reader.readNext(); // Leemos y descartamos la primera línea
-            String[] nextLine = null;
+            Class.forName("org.sqlite.JDBC");
+            connection = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\nahue\\OneDrive\\Documentos\\GitHub\\Trabajo-Practico-Integrador-Parte-1-\\demo\\src\\Base de datos\\BDTP.db3");
+            String query = "SELECT idPartido, Ronda, Equipo1, golesEquipo1, golesEquipo2, Equipo2 FROM Partidos ORDER BY Ronda, idPartido";
+            statement = connection.prepareStatement(query);
+            resultSet = statement.executeQuery();
+    
             Ronda rondaActual = null;
             int ultimoNroRonda = 0;
-            while ((nextLine = reader.readNext()) != null) {
-                int nroRonda = Integer.parseInt(nextLine[0]);
+            while (resultSet.next()) {
+                int nroRonda = resultSet.getInt("Ronda");
                 if (rondas.size() < nroRonda) {
                     rondaActual = new Ronda(nroRonda, new ArrayList<Partido>(), new ArrayList<Pronostico>(), new ArrayList<Participante>());
                     rondas.add(rondaActual);
@@ -33,22 +44,27 @@ public class LectorArchivos {
                     System.err.println("Error: se encontró un partido de la ronda " + nroRonda + " después de la ronda " + ultimoNroRonda);
                     return;
                 }
-                Equipo equipo1 = new Equipo(nextLine[1]);
-                Integer golesEquipo1 = Integer.parseInt(nextLine[2]);
-                Integer golesEquipo2 = Integer.parseInt(nextLine[3]);
-                Equipo equipo2 = new Equipo(nextLine[4]);
-                Partido partido = new Partido(rondaActual,++contador, equipo1, equipo2, golesEquipo1, golesEquipo2);
+                Equipo equipo1 = new Equipo(resultSet.getString("Equipo1"));
+                Integer golesEquipo1 = resultSet.getInt("golesEquipo1");
+                Integer golesEquipo2 = resultSet.getInt("golesEquipo2");
+                Equipo equipo2 = new Equipo(resultSet.getString("Equipo2"));
+                Partido partido = new Partido(rondaActual, ++contador, equipo1, equipo2, golesEquipo1, golesEquipo2);
                 rondaActual.getPartidos().add(partido);
             }
-
-        } catch (IOException e) {
+    
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         } finally {
-            if (reader != null) {
-                reader.close();
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
+            if (connection != null) {
+                connection.close();
             }
         }
-
     }
     
     
@@ -110,9 +126,3 @@ public class LectorArchivos {
         return rondas;
     }
 }
-
-
-
-    
-
-
