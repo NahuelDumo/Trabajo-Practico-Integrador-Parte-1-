@@ -12,7 +12,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
 public class LectorArchivos {
 
     private static ArrayList<Ronda> rondas = new ArrayList<Ronda>();
