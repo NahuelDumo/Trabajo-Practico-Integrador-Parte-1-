@@ -43,16 +43,6 @@ public class Pronostico {
     public void setParticipante(String participante) {
         this.participante = participante;
     }
-    public int ObtenerResutadoReal(Partido partido, String equipoAnalizar) {
-       
-        if (partido.resultado(equipoAnalizar).equals( this.resultado)){
-            return 1;
-        
-    }
-    else{
-        return 0;
-    }
-    }
     public int getRonda() {
         return ronda;
     }
@@ -62,5 +52,20 @@ public class Pronostico {
     public void setResultado(String resultado) {
         this.resultado = resultado;
     }
+    
+
+    public int ObtenerResutadoReal(Partido partido, String equipoAnalizar) {
+
+        if (partido.resultado(equipoAnalizar).equals(resultado)){
+            
+            return partido.obtenerResultado();
+
+        
+        }
+        else{
+            return 0;
+        }
+    }
+    
 }
 

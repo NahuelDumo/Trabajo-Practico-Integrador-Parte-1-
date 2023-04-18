@@ -5,38 +5,48 @@ import java.util.ArrayList;
 public class MainTp {
     public static void main(String[] args) {
         // Obtener los datos de los archivos CSV
-        String equipoAnalizar;
-        ArrayList<Ronda> rondas = LectorArchivos.ObtenerRondas();
+        
+        ArrayList<Fase> fases = LectorArchivos.ObtenerFases();
 
-        // Calcular los puntos de cada participante en cada ronda
-        for (Ronda ronda: rondas){
-            System.out.println("-------------------------------------------------\nPara la ronda Numero "+ronda.getNro()+"\nLos puntos son:\n");
-            ArrayList<Partido> partidos = ronda.getPartidos();
-            ArrayList<Pronostico> pronosticos = ronda.getPronosticos();
-            ArrayList<Participante> participantes = ronda.getParticipantes();
-
+        for(Fase fase: fases){
             
-            for (Participante participante : participantes) {
-                int puntaje = 0;
-                for (Pronostico pronostico : pronosticos) {
-                    if (pronostico.getParticipante().equals(participante.getNombre())) {
-                        Partido partido = partidos.get(pronostico.getIdPartido() - 1);
-                        equipoAnalizar = pronostico.getNombre_equipo();
+            System.out.println("\n*****\nFase: " 
+            + fase.getId_fase()+"\n*****\n");
 
-                        if (pronostico.getIdPartido() == partido.getId()) {
-                            puntaje += pronostico.ObtenerResutadoReal(partido, equipoAnalizar);
+            ArrayList<Ronda> rondas = fase.getRondas();
+            
+            // Calcular los puntos de cada participante en cada ronda
+            for (Ronda ronda: rondas){
+               
+                System.out.println("------------------------------------\nPara la ronda Numero "+ronda.getNro()+"\nLos puntos son:\n");
+                ArrayList<Participante> participantes = ronda.getParticipantes();
+                ronda.obtenerPuntajeRonda();
 
-                        }
-                    }
+
+                for (Participante participante : participantes){
+                    participante.acertoRonda(ronda);
+                    if( participante.getPuntaje() > (ronda.getPartidos().size()*Partido.getResultados().get(0).getPuntaje())){
+                        participante.SumarPuntajeFase(Partido.getResultados().get(4).getPuntaje());
+                    };    
+                    System.out.println(participante.getNombre()+":"+participante.getPuntaje());  
+                    participante.ResetearPuntajeRonda();
+                        
                 }
-                participante.setPuntaje(puntaje);
-            }
-
+                
+                
             
-            for (Participante participante : participantes){
-                    System.out.println(participante.getNombre()+":"+participante.getPuntaje());
             }
-            System.out.println();
+            System.out.println("\n------------------------------------\n");
+            for(Participante participante : fase.getParticipantesFase())
+            {
+                participante.acertofase(fase);
+                System.out.println("El puntaje de la fase para el participante "+participante.getNombre()+" fue de: "+participante.getPuntaje_fase()+" puntos\n"
+                );
+            }
+            System.out.println("\n------------------------------------\n");
+
         }
+
     }
 }
+

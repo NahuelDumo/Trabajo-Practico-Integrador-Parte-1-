@@ -1,16 +1,25 @@
 package TrabajoPracticoIntegradorParte1;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Partido {
+    
     private Ronda ronda;
     private Integer id  ;
     private Equipo equipo1;
     private Equipo equipo2;
     private final Integer golesEquipo1;
     private final Integer golesEquipo2;
+    private String resultado;
+    private static ArrayList<Resultado> resultados = LectorArchivos.leerArchivoPuntos();
 
-
+    public static ArrayList<Resultado> getResultados() {
+        return resultados;
+    }
+    public void setResultados(ArrayList<Resultado> resultados) {
+        Partido.resultados = resultados;
+    }
     public Ronda getRonda() {
         return ronda;
     }
@@ -54,28 +63,39 @@ public class Partido {
     public String resultado(String equipoAnalizar){
         if(Objects.equals(equipoAnalizar, this.equipo1.getNombre())){
             if (this.golesEquipo1 > this.golesEquipo2){
-                return "Ganador";
+                this.resultado= "Ganador";
             }
             else if (this.golesEquipo1 < this.golesEquipo2){
-                return "Perdedor";
+                this.resultado= "Perdedor";
             }
             else{
-                return "Empata";
+                this.resultado= "Empata";
             }
         }
         else{
                 if (this.golesEquipo1 < this.golesEquipo2){
-                    return "Ganador";
+                    this.resultado= "Ganador";
                 }
                 else if (this.golesEquipo1 > this.golesEquipo2){
-                    return "Perdedor";
+                    this.resultado= "Perdedor";
                 }
                 else{
-                    return "Empata";
+                    this.resultado= "Empata";
                 }
 
         }
+        return resultado;
+
     }
 
+    public int obtenerResultado() {
+        for (Resultado resultado_posible : resultados) {
+            if (resultado_posible.getNombre().equals(resultado)) {
+                int id_result = resultado_posible.getId_resultado();
+                return resultados.get(id_result).getPuntaje();
+            }
+        }
+        return 0;
+    }
 
 }
