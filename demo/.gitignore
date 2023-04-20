@@ -1,3 +1,4 @@
 # Ignora archivos de VSCode
 *.vscode
 *.idea
+target
