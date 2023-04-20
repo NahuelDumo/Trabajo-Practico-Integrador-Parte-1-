@@ -1,4 +1,4 @@
-package TrabajoPracticoIntegradorParte1;
+package TPI_AP;
 
 import java.util.ArrayList;
 
