@@ -1,4 +1,4 @@
-package TrabajoPracticoIntegradorParte1;
+package TPI_AP;
 
 public class Resultado {
     private int id_resultado;

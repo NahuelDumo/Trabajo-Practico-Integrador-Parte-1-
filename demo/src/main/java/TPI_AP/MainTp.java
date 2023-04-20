@@ -1,4 +1,4 @@
-package TrabajoPracticoIntegradorParte1;
+package TPI_AP;
 
 import java.util.ArrayList;
 
@@ -6,7 +6,7 @@ public class MainTp {
     public static void main(String[] args) {
         // Obtener los datos de los archivos CSV
         
-        ArrayList<Fase> fases = LectorArchivos.ObtenerFases();
+        ArrayList<Fase> fases = LectorArchivos.ObtenerFases("C://Users//nahue//OneDrive//Documentos//GitHub//Trabajo-Practico-Integrador-Parte-1-//demo//src//Base_de_datos//BDTP.db3");
 
         for(Fase fase: fases){
             

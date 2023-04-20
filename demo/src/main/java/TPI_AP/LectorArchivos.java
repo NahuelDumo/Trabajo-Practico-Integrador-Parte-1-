@@ -1,11 +1,9 @@
-package TrabajoPracticoIntegradorParte1;
+package TPI_AP;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.apache.commons.lang3.ObjectUtils.Null;
 
 import com.opencsv.CSVReader;
 import java.sql.Connection;
@@ -21,14 +19,14 @@ public class LectorArchivos {
     public static final char SEPARATOR = ',';
  
 
-    public void convertirPartidos(String[] args) throws SQLException {
+    public void convertirPartidos(String[] args, String DireccionDB) throws SQLException {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
     
         try {
             Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\nahue\\OneDrive\\Documentos\\GitHub\\Trabajo-Practico-Integrador-Parte-1-\\demo\\src\\Base de datos\\BDTP.db3");
+            connection = DriverManager.getConnection(DireccionDB);
             String query = "SELECT * FROM Partidos ORDER BY Ronda, idPartido";
             statement = connection.prepareStatement(query);
             resultSet = statement.executeQuery();
@@ -141,18 +139,18 @@ public class LectorArchivos {
         }
     }
 
-    public static ArrayList<Ronda> ObtenerRondas() {
+    public static ArrayList<Ronda> ObtenerRondas(String DireccionDB) {
         LectorArchivos lectorArchivos = new LectorArchivos();
         try {
-            lectorArchivos.convertirPartidos(null);
+            lectorArchivos.convertirPartidos(null, DireccionDB);
             lectorArchivos.convertirPronostico(null) ;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return rondas;
     }
-    public static ArrayList<Fase> ObtenerFases() {
-        ArrayList<Ronda> lista_rondas = ObtenerRondas();
+    public static ArrayList<Fase> ObtenerFases(String DireccionBD) {
+        ArrayList<Ronda> lista_rondas = ObtenerRondas(DireccionBD);
         try {
             for(Fase fase: fases){
                 fase.buscarRondas_Fase(lista_rondas);
